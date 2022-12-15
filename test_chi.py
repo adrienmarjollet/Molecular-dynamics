@@ -8,7 +8,6 @@ from distutils.dir_util import copy_tree
 import time
 
 
-
 current_directory = os.getcwd()
 
 au2cm = 27.211 * 8065.5
