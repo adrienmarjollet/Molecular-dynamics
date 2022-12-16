@@ -52,18 +52,9 @@ print()
 
 '''
 IN THE HARMONIC  REGIME FOR WHICH EVERYTHING IS ANALYTIC WE CAN WORK WITH ONLY the p part of the matrices
-'''
 
+BY USING (1) WE CAN GET Cp FROM Ap and Bp
 '''
-BY USING (1) WE CAN GET Cp FROM Ap and Bp:
-'''
-
-'''
-MODULE LINALG FROM NUMPY NUTSHELL:
-'''
-A = np.array([[1, 2, 3], [3, 2, 1], [1, 0, -1]])
-diag, P = LA.eig(A)
-DA = np.diag(diag)
 
 
 def chifit4(m, w_arr, tCqq_arr, tCpp_arr, Cqq_arr, Cpp_arr):
