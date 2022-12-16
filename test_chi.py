@@ -1,15 +1,10 @@
 import numpy as np
 from numpy import linalg as LA
 import os
-import sys
-from shutil import copyfile
-from shutil import move
-from distutils.dir_util import copy_tree
-import time
-
 
 current_directory = os.getcwd()
 
+'''Units'''
 au2cm = 27.211 * 8065.5
 au2K = 315774.641
 kcalmol2cm = 349.75
@@ -41,9 +36,7 @@ WELL BEHAVED SDE -> Constraints on the Memory kernel K -> Constraints on A:
 '''
 Bp : REAL lower triangular (iii)
                 
-             -> (n+1)(n+2)/2 free parameters   
-
-                        
+             -> (n+1)(n+2)/2 free parameters                           
 '''
 
 '''
@@ -71,49 +64,6 @@ MODULE LINALG FROM NUMPY NUTSHELL:
 A = np.array([[1, 2, 3], [3, 2, 1], [1, 0, -1]])
 diag, P = LA.eig(A)
 DA = np.diag(diag)
-'''
-A = P.DA.P-1
-'''
-'''
-print(diag)
-print()
-print(np.dot(A,P[:,0]) -  diag[0]*P[:,0]<10e-10)
-print(np.dot(A,P[:,1]) -  diag[1]*P[:,1]<10e-10)
-print(np.dot(A,P[:,2]) -  diag[2]*P[:,2]<10e-10)
-print()
-print(A - np.dot(np.dot(P,DA),LA.inv(P))<10e-10)
-'''
-'''
-FINDING SQUARE ROOT OF A MATRIX
-'''
-'''
-#Suppose
-SST = np.array([[2,-1,0],[-1,2,-1],[0,-1,2]])
-#what is S ?
-ls, Ls = LA.eig(SST)
-print(ls)
-print(LA.det(SST))
-print()
-mat_ls=np.diagflat(ls, 0)
-Ls_inv=np.linalg.inv(Ls)
-Ls_T=Ls.transpose()
-#print(Ls.transpose()-np.linalg.inv(Ls))#1E-12 prec
-#print(SST-np.dot(np.dot(Ls,mat_ls),Ls_T))#1E-21 prec
-sqrt_ls=np.array([float(0) for i in range(len(ls))]) 
-for i in range(len(ls)):
-    if ls[i]<0:
-        ls[i]=0.0
-        #sqrt_ls[i]=0.0
-        sqrt_ls[i] =  0.#np.sqrt(ls[i])
-    else:
-        sqrt_ls[i]=np.sqrt(ls[i])
-
-mat_sqrt_ls=np.diagflat(sqrt_ls, 0)
-S_guess=np.dot(Ls,mat_sqrt_ls)
-S_guess_T=S_guess.transpose()
-print(SST-np.dot(S_guess,S_guess_T))#1E-20
-S=S_guess
-'''
 
 
 def chifit4(m, w_arr, tCqq_arr, tCpp_arr, Cqq_arr, Cpp_arr):
@@ -127,10 +77,6 @@ def chifit4(m, w_arr, tCqq_arr, tCpp_arr, Cqq_arr, Cpp_arr):
 
 def cov_elem(n, i, j, d_arr, P, Mfact):
     S = float(0)
-    #Pinv = LA.inv(P)
-    #BT = B.transpose()
-    #PinvT = Pinv.transpose()
-    #Mfact = np.dot(np.dot(np.dot(Pinv,B),BT),PinvT)
     for k in range(n):
         for l in range(n):
             S += (P[i, k] * Mfact[k, l] * P[j, l]) / (d_arr[k] + d_arr[l])
