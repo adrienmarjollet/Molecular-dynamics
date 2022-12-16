@@ -4,7 +4,7 @@ import os
 
 current_directory = os.getcwd()
 
-'''Units'''
+'''Convertion units and conventions'''
 au2cm = 27.211 * 8065.5
 au2K = 315774.641
 kcalmol2cm = 349.75
