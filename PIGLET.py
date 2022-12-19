@@ -11,7 +11,7 @@ kcalmol2cm = 349.75
 fs2au = 41.341374575
 
 '''
-WE TREAT THE 1D CASE / QT 
+WE TREAT THE 1D CASE / QT. 
 '''
 Ns = 1
 
